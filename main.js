@@ -90,7 +90,7 @@ function endGame() {
     updateScores();
     updateHands();
     gameOver = true;
-    
+
 }
 
 function createDeck() {
@@ -100,9 +100,9 @@ function createDeck() {
     for (let suit of suits) {
         for (let value of values) {
 
-            card = { 
-                cardSuit:suit,
-                cardValue:value,
+            card = {
+                cardSuit: suit,
+                cardValue: value,
                 cardName: `${value} of ${suit}`,
                 cardImage: `${cardStylePath}${suit[0]}${value[0]}.jpg`
             }
