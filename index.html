@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blackjack</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Orbitron">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tomorrow:wght@100;400;700&display=swap">
+</head>
+<body>
+    <div class="container">
+        <h1>Blackjack</h1>
+
+        <!-- Dealer Section -->
+        <div class="dealer player">
+            <h2>Dealer</h2>
+            <div id="dealer-box">
+                <label id="dealer-score" class="label">Score: 0</label>
+                <div id="dealer-hand" class="card-row">
+                    <!-- Dealer cards will go here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Player Section -->
+        <div class="player">
+            <h2>Player</h2>
+            <div id="player-box">
+                <label id="player-score" class="label">Score: 0</label>
+                <div id="player-hand" class="card-row">
+                    <!-- Player cards will go here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div id="buttons" class="actions">
+            <button id="new-game-button" class="button" onclick="startNewGame()">New Game</button>
+            <button id="hit-button" class="button" onclick="hit()">Hit</button>
+            <button id="stand-button" class="button" onclick="stand()">Stand</button>
+        </div>
+
+        <!-- Card Style Selector -->
+        <div id="cardStyleDiv">
+            <label id="CardStyleLabel" class="label">Choose a card style:</label>
+            <select name="Card style" id="card-style" onchange="chooseCardStyle()" class="dropdown">
+                <option value="" disabled selected>Choose</option>
+                <option value="CircuitWhiteCards">Circuit White Cards</option>
+                <option value="GlitchCards">Glitch Cards</option>
+                <option value="HexoMonoCards">Hexo Mono Cards</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Main JavaScript -->
+    <script src="main.js"></script>
+</body>
+</html>

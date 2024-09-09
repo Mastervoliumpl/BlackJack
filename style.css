@@ -1,0 +1,139 @@
+/* General Styles */
+body {
+    font-family: 'Tomorrow', 'Roboto Mono', monospace;
+    color: #ffffff;
+    background-color: #2c2a2a;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+    overflow: hidden;
+}
+
+/* Title on the top left */
+h1 {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 32px;
+}
+
+/* Container layout */
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    padding: 1px;
+}
+
+.label {
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+/* Dealer Section - top half */
+.dealer {
+    background-color: #424242;
+    border-radius: 12px;
+    padding: 1px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 50%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+/* Player Section - bottom half */
+.player {
+    background-color: #3e3e3e;
+    border-radius: 12px;
+    padding: 1px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 50%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    margin-top: 10px;
+}
+
+/* Card Row */
+.card-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    margin: 10px 0;
+    /* Ensuring space for at least 5 cards, preventing shifting */
+    min-height: 200px;
+    max-width: 80%;
+    gap: 10px;
+}
+
+/* Images for cards */
+img {
+    max-width: 10%;
+    height: auto;
+    margin: 5px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Align Score properly above cards */
+#dealer-box, #player-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#dealer-score, #player-score {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: white;
+}
+
+/* Buttons for actions - below player’s cards */
+.actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+/* Buttons */
+.button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #45a049;
+}
+
+/* Select dropdown */
+.dropdown {
+    font-size: 16px;
+    font-family: 'Tomorrow', 'Roboto Mono', monospace;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin: 10px;
+    cursor: pointer;
+    background-color: #fff;
+    color: #333;
+}
