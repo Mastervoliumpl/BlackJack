@@ -7,6 +7,7 @@ let playerScore = 0;
 let dealerScore = 0;
 let playerBust = false;
 let dealerBust = false;
+let playerStand = false;
 
 function chooseCardStyle() {
     let cardStyle = document.getElementById('card-style').value;
@@ -54,12 +55,12 @@ function hit() {
         console.log('player hit, score:', playerScore);
         updateScores();
         updateHands();
-        dealerPlay()
     }
 }
 
 function stand() {
     if (playerTurn && !gameOver) {
+        playerStand = true;
         playerTurn = false;
         console.log('player stand, turn:', playerTurn);
         updateScores();
@@ -69,8 +70,6 @@ function stand() {
 }
 
 function dealerPlay() {
-    updateScores();
-    updateHands();
     console.log('dealer play, score:', dealerScore);
     while (dealerScore < 17) {
         dealerHand.push(deck.pop());
@@ -82,6 +81,7 @@ function dealerPlay() {
     }
     updateScores();
     updateHands();
+    playerStand = false;
     playerTurn = true;
 }
 
@@ -99,12 +99,21 @@ function createDeck() {
     let deck = [];
     for (let suit of suits) {
         for (let value of values) {
-
+            let NumericValue = 0;
+            if (value === 'Jack' || value === 'Queen' || value === 'King') {
+                NumericValue = 10;
+            } else if (value === 'Ace') {
+                NumericValue = 11;
+            } else {
+                NumericValue = parseInt(value);
+            }
             card = {
                 cardSuit: suit,
                 cardValue: value,
                 cardName: `${value} of ${suit}`,
-                cardImage: `${cardStylePath}${suit[0]}${value[0]}.jpg`
+                cardImage: `${cardStylePath}${suit[0]}${value[0]}.jpg`,
+                cardStyle: `${cardStylePath}`,
+                cardNumericValue: NumericValue
             }
 
             deck.push(card);
@@ -129,14 +138,9 @@ function calculateScore(hand) {
     let aces = 0;
     console.log('calculating score');
     for (let card of hand) {
-        let value = card.cardValue;
-        if (value === 'Jack' || value === 'Queen' || value === 'King') {
-            score += 10;
-        } else if (value === 'Ace') {
+        score += card.cardNumericValue;
+        if (card.cardValue === 'Ace') {
             aces++;
-            score += 11;
-        } else {
-            score += parseInt(value);
         }
     }
     while (score > 21 && aces > 0) {
@@ -151,7 +155,11 @@ function calculateScore(hand) {
 
 function updateScores() {
     document.getElementById('player-score').textContent = playerScore;
-    document.getElementById('dealer-score').textContent = dealerScore;
+    if (playerStand) {
+        document.getElementById('dealer-score').textContent = dealerScore;
+    } else {
+        document.getElementById('dealer-score').textContent = dealerHand[1].cardNumericValue;
+    }
 }
 
 function updateHands() {
@@ -167,9 +175,16 @@ function updateHands() {
         playerHandElement.appendChild(cardElement);
     });
 
-    dealerHand.forEach(card => {
-        let cardElement = document.createElement('img');
-        cardElement.src = card.cardImage;;
+    let cardAmmount = dealerHand.length;
+    dealerHand.forEach((card, index) => {
+        const cardElement = document.createElement('img');
+
+        if (index === 0 && !playerStand) {
+            cardElement.src = `${card.cardStyle}BOC.jpg`;
+        } else {
+            cardElement.src = card.cardImage;
+        }
+
         dealerHandElement.appendChild(cardElement);
     });
 }
