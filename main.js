@@ -8,6 +8,10 @@ let dealerScore = 0;
 let playerBust = false;
 let dealerBust = false;
 let playerStand = false;
+let playerTurn = true;
+
+const toastLive = document.getElementById('liveToast');
+const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLive);
 
 function chooseCardStyle() {
     let cardStyle = document.getElementById('card-style').value;
@@ -87,10 +91,25 @@ function dealerPlay() {
 
 function endGame() {
     console.log('game over');
+    gameOver = true;
     updateScores();
     updateHands();
-    gameOver = true;
-
+    if (playerBust) {
+        document.getElementById('toast-body').textContent = 'Player Busts! Dealer Wins!';
+        toastBootstrap.show();
+    } else if (dealerBust) {
+        document.getElementById('toast-body').textContent = 'Dealer Busts! Player Wins!';
+        toastBootstrap.show();
+    } else if (playerScore > dealerScore) {
+        document.getElementById('toast-body').textContent = 'Player Wins!';
+        toastBootstrap.show();
+    } else if (dealerScore > playerScore) {
+        document.getElementById('toast-body').textContent = 'Dealer Wins!';
+        toastBootstrap.show();
+    } else {
+        document.getElementById('toast-body').textContent = 'It\'s a Tie!';
+        toastBootstrap.show();
+    }
 }
 
 function createDeck() {
