@@ -82,6 +82,8 @@ function dealerPlay() {
     if (dealerScore > 21) {
         dealerBust = true;
         endGame();
+    } else if (dealerScore <= playerScore) {
+        endGame();
     }
     updateScores();
     updateHands();
@@ -106,7 +108,7 @@ function endGame() {
     } else if (dealerScore > playerScore) {
         document.getElementById('toast-body').textContent = 'Dealer Wins!';
         toastBootstrap.show();
-    } else {
+    } else if (dealerscore === playerscore) {
         document.getElementById('toast-body').textContent = 'It\'s a Tie!';
         toastBootstrap.show();
     }
