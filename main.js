@@ -47,24 +47,36 @@ function updateUI() {
     const dealerHandElement = document.getElementById('dealer-hand');
 
     document.getElementById('player-score').textContent = game.player.score;
-    document.getElementById('dealer-score').textContent = game.dealer.score;
+    // Only show the full dealer score if the game is over
+    if (game.gameOver) {
+        document.getElementById('dealer-score').textContent = game.dealer.score;
+    } else {
+        // Only show the value of the second dealer card (hide the first card's value)
+        const visibleDealerCardValue = game.dealer.hand[1].numericValue;
+        document.getElementById('dealer-score').textContent = visibleDealerCardValue;
+    }
 
-    // clears previous cards
+    // Clear previous cards
     playerHandElement.innerHTML = '';
     dealerHandElement.innerHTML = '';
 
+    // Render player cards
     game.player.hand.forEach(card => {
         playerHandElement.appendChild(createCardElement(card));
     });
 
+    // Render dealer cards
     game.dealer.hand.forEach((card, index) => {
         const cardElement = document.createElement('img');
+
+        // Hide the first card of the dealer if the game is still ongoing
         if (index === 0 && !game.gameOver) {
-            cardElement.src = `${cardStylePath}/BOC.jpg`;  // Hide the dealer's first card
+            cardElement.src = `${game.deck.cardStylePath}BOC.jpg`;  // Back of card image
         } else {
-            cardElement.src = card.imagePath;
+            cardElement.src = card.imagePath;  // Show card image
         }
-        dealerHandElement.appendChild(createCardElement(card));
+
+        dealerHandElement.appendChild(cardElement);
     });
 }
 
