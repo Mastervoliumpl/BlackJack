@@ -69,9 +69,9 @@ function updateUI() {
     game.dealer.hand.forEach((card, index) => {
         const cardElement = document.createElement('img');
 
-        // Hide the first card of the dealer if the game is still ongoing
+        // Hide the first card of the dealer
         if (index === 0 && !game.gameOver) {
-            cardElement.src = `${game.deck.cardStylePath}BOC.jpg`;  // Back of card image
+            cardElement.src = `${game.deck.cardStylePath}BOC.jpg`;
         } else {
             cardElement.src = card.imagePath;  // Show card image
         }
