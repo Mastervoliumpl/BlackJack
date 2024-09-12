@@ -256,4 +256,8 @@ class Deck {
             [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]];
         }
     }
+
+    drawCard() {
+        return this.cards.pop();
+    }
 }
