@@ -269,21 +269,24 @@ class Player {
         this.bust = false;
     }
 
+    addCard(card) {
+        this.hand.push(card);
+        this.calculateScore();
+    }
+
     calculateScore() {
-        let score = 0;
         let aces = 0;
         console.log('calculating score');
-        for (let card of this.hand) {
-            score += card.numericValue;
-            if (card.value === 'Ace') {
-                aces++;
-            }
-        }
-        while (score > 21 && aces > 0) {
-            score -= 10;
+        this.score = this.hand.reduce((acc, card) => { // reduce method to sum the numeric value of each card in the hand, acc is the accumulator (Keeps accumulating the sum of the cards), card is the current card being iterated
+            if (card.value === 'Ace') aces++;
+            return acc + card.numericValue; // returns the sum of the accumulator and the numeric value of the current card
+        }, 0); // 0 is the initial value of the accumulator
+
+        while (this.score > 21 && aces > 0) {
+            this.score -= 10;
             aces--;
         }
-        console.log('score:', score);
-        return score;
+
+        this.bust = this.score > 21;
     }
 }
