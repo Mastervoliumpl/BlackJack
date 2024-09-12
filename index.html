@@ -16,7 +16,7 @@
         <h1>Blackjack</h1>
         <!-- Dealer Section -->
         <div class="dealer">
-             <!-- Places the score next to the dealer's header -->
+            <!-- Places the score next to the dealer's header -->
             <h2>Dealer | <span id="dealer-score">0</span></h2>
             <div id="dealer-box">
                 <div id="dealer-hand" class="card-row">
@@ -41,9 +41,9 @@
                 <label id="CardStyleLabel" class="label">Choose a card style:</label>
                 <select name="Card style" id="card-style" onchange="chooseCardStyle()" class="dropdown">
                     <option value="" disabled selected>Choose</option>
-                    <option value="CircuitWhiteCards">Circuit White Cards</option>
-                    <option value="GlitchCards">Glitch Cards</option>
-                    <option value="HexoMonoCards">Hexo Mono Cards</option>
+                    <option value="CircuitWhiteCards/">Circuit White Cards</option>
+                    <option value="GlitchCards/">Glitch Cards</option>
+                    <option value="HexoMonoCards/">Hexo Mono Cards</option>
                 </select>
             </div>
             <!-- Game Buttons -->
@@ -57,7 +57,7 @@
             </div>
         </div>
         <!-- Message for win/lose -->
-        <div id="liveToast" class="toast text-bg-dark align-items-center position-absolute bottom-0 end-0 mx-5 my-5" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div id="liveToast" class="toast text-bg-dark align-items-center position-absolute bottom-0 end-0 mx-5 my-5" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="d-flex">
                 <div id="toast-body" class="toast-body">
                 message
