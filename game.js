@@ -1,3 +1,6 @@
+const toastLive = document.getElementById('liveToast');
+const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLive);
+
 class Game {
     constructor() {
         this.deck = new Deck(`CircuitWhiteCards/`); // creates a new deck with default card style
@@ -36,16 +39,20 @@ class Game {
 
     endGame() {
         this.gameOver = true;
+        let resultMessage = '';
+
         if (this.player.bust) {
-            console.log('Player Busts! Dealer Wins!');
+            resultMessage = 'Player Busts! Dealer Wins!';
         } else if (this.dealer.bust) {
-            console.log('Dealer Busts! Player Wins!');
+            resultMessage = 'Dealer Busts! Player Wins!';
         } else if (this.player.score > this.dealer.score) {
-            console.log('Player Wins!');
+            resultMessage = 'Player Wins!';
         } else if (this.dealer.score > this.player.score) {
-            console.log('Dealer Wins!');
-        } else if (this.dealer.score === this.player.score) {
-            console.log('It\'s a Tie!');
+            resultMessage = 'Dealer Wins!';
+        } else {
+            resultMessage = 'It\'s a Tie!';
         }
+
+        return resultMessage;  // Return the result to be displayed in main.js
     }
 }
