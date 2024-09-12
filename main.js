@@ -261,3 +261,29 @@ class Deck {
         return this.cards.pop();
     }
 }
+
+class Player {
+    constructor() {
+        this.hand = [];
+        this.score = 0;
+        this.bust = false;
+    }
+
+    calculateScore() {
+        let score = 0;
+        let aces = 0;
+        console.log('calculating score');
+        for (let card of this.hand) {
+            score += card.numericValue;
+            if (card.value === 'Ace') {
+                aces++;
+            }
+        }
+        while (score > 21 && aces > 0) {
+            score -= 10;
+            aces--;
+        }
+        console.log('score:', score);
+        return score;
+    }
+}
