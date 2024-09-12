@@ -84,18 +84,6 @@ img {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
-/* Buttons for actions - below player’s cards */
-.actions {
-    gap: 20px;
-}
-
-.btn {
-    font-size: 16px;
-    font-family: 'Tomorrow', 'Roboto Mono', monospace;
-    cursor: pointer;
-    color: #d2d2d2;
-}
-
 .navbar {
     position: absolute;
     bottom: 20px;
@@ -105,12 +93,11 @@ img {
 
 .dropdown {
     font-size: 16px;
+    text-align: center;
     font-family: 'Tomorrow', 'Roboto Mono', monospace;
-    padding: 5px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+    border-radius: 10px;
     margin: 10px;
     cursor: pointer;
-    background-color: #fff;
-    color: #333;
+    background-color: #292929;
+    color: #dedede;
 }
