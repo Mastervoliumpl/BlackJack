@@ -28,6 +28,10 @@ This is my go at attempting to create Blackjack using JavaScript.
 
 
 ## Changelogs
+### 1.0.0 - 13/09/2024
+- Pull to main
+- First release of program
+
 ### 0.5.0 - 12-13/09/2024
 - Refractored code to utilize classes and objects
 - Functions split into different classes
