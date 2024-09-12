@@ -1,19 +1,15 @@
-import Card from './card.js';
-import Game from './game.js';
-import Deck from './deck.js';
-import Player from './player.js';
-
 let game;
+let cardStylePath = 'CircuitWhiteCards/'; // Default card style
+
+const toastLive = document.getElementById('liveToast');
+const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLive);
 
 window.onload = function () {
     game = new Game();
-
-    document.getElementById('new-game-button').addEventListener('click', startGame);
-    document.getElementById('hit-button').addEventListener('click', playerHit);
-    document.getElementById('stand-button').addEventListener('click', dealerPlay);
 };
 
-function startGame() {
+function startNewGame() {
+    game = new Game(cardStylePath);  // Pass cardStylePath when starting
     game.startNewGame();
     updateUI();
 }
@@ -22,11 +18,11 @@ function playerHit() {
     game.playerHit();
     updateUI();
     if (game.gameOver) {
-        displatEndMessage();
+        displayEndMessage();
     }
 }
 
-function dealerPlay() {
+function playerStand() {
     game.dealerPlay();
     updateUI();
     if (game.gameOver) {
@@ -34,33 +30,37 @@ function dealerPlay() {
     }
 }
 
-function updateUI() {
-    updateScores();
-    updateHands();
+function chooseCardStyle() {
+    cardStylePath = document.getElementById('card-style').value; // Update cardStylePath
+    game = new Game(cardStylePath);  // Update the deck with the new style
+    updateUI();
 }
 
-function updateScores() {
+function createCardElement(card) {
+    const cardElement = document.createElement('img');
+    cardElement.src = card.imagePath;
+    return cardElement;
+}
+
+function updateUI() {
+    const playerHandElement = document.getElementById('player-hand');
+    const dealerHandElement = document.getElementById('dealer-hand');
+
     document.getElementById('player-score').textContent = game.player.score;
     document.getElementById('dealer-score').textContent = game.dealer.score;
-}
 
-function updateHands() {
-    updateHand(game.player.hand, 'player-hand');
-    updateHand(game.dealer.hand, 'dealer-hand');
-
+    // clears previous cards
     playerHandElement.innerHTML = '';
     dealerHandElement.innerHTML = '';
 
     game.player.hand.forEach(card => {
-        const cardElement = document.createElement('img');
-        cardElement.src = card.imagePath;
         playerHandElement.appendChild(createCardElement(card));
     });
 
-    game.dealer.hand.forEach(card => {
+    game.dealer.hand.forEach((card, index) => {
         const cardElement = document.createElement('img');
         if (index === 0 && !game.gameOver) {
-            cardElement.src = '${game.deck.cardStylePath}/BOC.jpg';
+            cardElement.src = `${cardStylePath}/BOC.jpg`;  // Hide the dealer's first card
         } else {
             cardElement.src = card.imagePath;
         }

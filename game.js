@@ -1,6 +1,3 @@
-const toastLive = document.getElementById('liveToast');
-const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLive);
-
 class Game {
     constructor() {
         this.deck = new Deck(`CircuitWhiteCards/`); // creates a new deck with default card style
