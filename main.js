@@ -1,211 +1,87 @@
-let deck = [];
-let cardStylePath = '';
-let gameOver = false;
-let playerHand = [];
-let dealerHand = [];
-let playerScore = 0;
-let dealerScore = 0;
-let playerBust = false;
-let dealerBust = false;
-let playerStand = false;
-let playerTurn = true;
+let game;
+let cardStylePath = 'CircuitWhiteCards/'; // Default card style
 
 const toastLive = document.getElementById('liveToast');
 const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLive);
 
-function chooseCardStyle() {
-    let cardStyle = document.getElementById('card-style').value;
-    cardStylePath = `${cardStyle}/`;
-    console.log(cardStylePath);
-}
+window.onload = function () {
+    game = new Game();
+};
 
 function startNewGame() {
-    resetGame();
-    deck = createDeck();
-    shuffleDeck(deck);
-    for (let i = 0; i < 2; i++) { // iterates twice to deal two cards to each player 1 at a time
-        dealerHand.push(deck.pop());
-        playerHand.push(deck.pop());
-    }
-    playerScore = calculateScore(playerHand);
-    dealerScore = calculateScore(dealerHand);
-    playerTurn = true;
-    gameOver = false;
-    updateScores();
-    updateHands();
+    game = new Game(cardStylePath);  // Pass cardStylePath when starting
+    game.startNewGame();
+    updateUI();
 }
 
-function resetGame() {
-    playerHand = [];
-    dealerHand = [];
-    playerScore = 0;
-    dealerScore = 0;
-    playerBust = false;
-    dealerBust = false;
-    playerTurn = true;
-    gameOver = false;
-}
-
-function hit() {
-    updateScores();
-    updateHands();
-    if (playerTurn && !gameOver) {
-        playerHand.push(deck.pop());
-        playerScore = calculateScore(playerHand);
-        if (playerScore > 21) {
-            playerBust = true;
-            endGame();
-        }
-        console.log('player hit, score:', playerScore);
-        updateScores();
-        updateHands();
+function playerHit() {
+    game.playerHit();
+    updateUI();
+    if (game.gameOver) {
+        displayEndMessage();
     }
 }
 
-function stand() {
-    if (playerTurn && !gameOver) {
-        playerStand = true;
-        playerTurn = false;
-        console.log('player stand, turn:', playerTurn);
-        updateScores();
-        updateHands();
-        dealerPlay();
+function playerStand() {
+    game.dealerPlay();
+    updateUI();
+    if (game.gameOver) {
+        displayEndMessage();
     }
 }
 
-function dealerPlay() {
-    console.log('dealer play, score:', dealerScore);
-    while (dealerScore < 17) {
-        dealerHand.push(deck.pop());
-        dealerScore = calculateScore(dealerHand);
-    }
-    if (dealerScore > 21) {
-        dealerBust = true;
-        endGame();
-    } else if (dealerScore <= playerScore) {
-        endGame();
-    }
-    updateScores();
-    updateHands();
-    playerStand = false;
-    playerTurn = true;
+function chooseCardStyle() {
+    cardStylePath = document.getElementById('card-style').value; // Update cardStylePath
+    game = new Game(cardStylePath);  // Update the deck with the new style
+    updateUI();
 }
 
-function endGame() {
-    console.log('game over');
-    gameOver = true;
-    updateScores();
-    updateHands();
-    if (playerBust) {
-        document.getElementById('toast-body').textContent = 'Player Busts! Dealer Wins!';
-        toastBootstrap.show();
-    } else if (dealerBust) {
-        document.getElementById('toast-body').textContent = 'Dealer Busts! Player Wins!';
-        toastBootstrap.show();
-    } else if (playerScore > dealerScore) {
-        document.getElementById('toast-body').textContent = 'Player Wins!';
-        toastBootstrap.show();
-    } else if (dealerScore > playerScore) {
-        document.getElementById('toast-body').textContent = 'Dealer Wins!';
-        toastBootstrap.show();
-    } else if (dealerscore === playerscore) {
-        document.getElementById('toast-body').textContent = 'It\'s a Tie!';
-        toastBootstrap.show();
-    }
+function createCardElement(card) {
+    const cardElement = document.createElement('img');
+    cardElement.src = card.imagePath;
+    return cardElement;
 }
 
-function createDeck() {
-    const suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades'];
-    const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace'];
-    let deck = [];
-    for (let suit of suits) {
-        for (let value of values) {
-            let NumericValue = 0;
-            if (value === 'Jack' || value === 'Queen' || value === 'King') {
-                NumericValue = 10;
-            } else if (value === 'Ace') {
-                NumericValue = 11;
-            } else {
-                NumericValue = parseInt(value);
-            }
-            card = {
-                cardSuit: suit,
-                cardValue: value,
-                cardName: `${value} of ${suit}`,
-                cardImage: `${cardStylePath}${suit[0]}${value[0]}.jpg`,
-                cardStyle: `${cardStylePath}`,
-                cardNumericValue: NumericValue
-            }
+function updateUI() {
+    const playerHandElement = document.getElementById('player-hand');
+    const dealerHandElement = document.getElementById('dealer-hand');
 
-            deck.push(card);
-            console.log(card);
-        }
-    }
-    console.log('created deck');
-    return deck;
-}
-
-// Fisher–Yates shuffle
-function shuffleDeck(deck) {
-    console.log('shuffling deck');
-    for (let i = deck.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [deck[i], deck[j]] = [deck[j], deck[i]];
-    }
-}
-
-function calculateScore(hand) {
-    let score = 0;
-    let aces = 0;
-    console.log('calculating score');
-    for (let card of hand) {
-        score += card.cardNumericValue;
-        if (card.cardValue === 'Ace') {
-            aces++;
-        }
-    }
-    while (score > 21 && aces > 0) {
-        score -= 10;
-        aces--;
-    }
-    console.log('score:', score);
-    updateScores();
-    updateHands();
-    return score;
-}
-
-function updateScores() {
-    document.getElementById('player-score').textContent = playerScore;
-    if (playerStand) {
-        document.getElementById('dealer-score').textContent = dealerScore;
+    document.getElementById('player-score').textContent = game.player.score;
+    // Only show the full dealer score if the game is over
+    if (game.gameOver) {
+        document.getElementById('dealer-score').textContent = game.dealer.score;
     } else {
-        document.getElementById('dealer-score').textContent = dealerHand[1].cardNumericValue;
+        // Only show the value of the second dealer card (hide the first card's value)
+        const visibleDealerCardValue = game.dealer.hand[1].numericValue;
+        document.getElementById('dealer-score').textContent = visibleDealerCardValue;
     }
-}
 
-function updateHands() {
-    let playerHandElement = document.getElementById('player-hand');
-    let dealerHandElement = document.getElementById('dealer-hand');
-
+    // Clear previous cards
     playerHandElement.innerHTML = '';
     dealerHandElement.innerHTML = '';
 
-    playerHand.forEach(card => {
-        let cardElement = document.createElement('img');
-        cardElement.src = card.cardImage;
-        playerHandElement.appendChild(cardElement);
+    // Render player cards
+    game.player.hand.forEach(card => {
+        playerHandElement.appendChild(createCardElement(card));
     });
 
-    let cardAmmount = dealerHand.length;
-    dealerHand.forEach((card, index) => {
+    // Render dealer cards
+    game.dealer.hand.forEach((card, index) => {
         const cardElement = document.createElement('img');
 
-        if (index === 0 && !playerStand) {
-            cardElement.src = `${card.cardStyle}BOC.jpg`;
+        // Hide the first card of the dealer
+        if (index === 0 && !game.gameOver) {
+            cardElement.src = `${game.deck.cardStylePath}BOC.jpg`;
         } else {
-            cardElement.src = card.cardImage;
+            cardElement.src = card.imagePath;  // Show card image
         }
 
         dealerHandElement.appendChild(cardElement);
     });
+}
+
+function displayEndMessage() {
+    const message = game.endGame(); // Get the result message from the game logic
+    document.getElementById('toast-body').textContent = message;
+    toastBootstrap.show();
 }
