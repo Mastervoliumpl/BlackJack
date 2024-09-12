@@ -218,3 +218,15 @@ class Card {
         this.imagePath = imagePath;
     }
 }
+
+class Deck {
+    constructor(cardStylePath) {
+        this.cardStylePath = cardStylePath;
+        this.cards = this.createDeck();
+        this.shuffleDeck();
+    }
+
+    createDeck() {
+
+    }
+}
