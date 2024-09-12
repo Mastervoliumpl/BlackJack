@@ -241,8 +241,19 @@ class Deck {
     }
 
     getNumericValue(value) {
+        console.log('Getting Numeric Value');
         if (value === 'Ace') return 11;
         if (value === 'Jack' || value === 'Queen' || value === 'King') return 10;
+        console.log('Numeric Value:', parseInt(value));
         return parseInt(value);
+    }
+
+    // Fisher–Yates shuffle
+    shuffleDeck() {
+        console.log('shuffling deck');
+        for (let i = this.cards.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]];
+        }
     }
 }
