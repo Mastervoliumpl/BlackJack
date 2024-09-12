@@ -227,6 +227,23 @@ class Deck {
     }
 
     createDeck() {
-
+        const suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades'];
+        const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace'];
+        let deck = [];
+        for (let suit of suits) {
+            for (let value of values) {
+                let numericValue = this.numericValue(value);
+                const imagePath = `${this.cardStylePath}${suit[0]}${value[0]}.jpg`;
+                //if (value === 'Jack' || value === 'Queen' || value === 'King') {
+                //    numericValue = 10;
+                //} else if (value === 'Ace') {
+                //    numericValue = 11;
+                //} else {
+                //    numericValue = parseInt(value);
+                //}
+                deck.push(new Card(suit, value, numericValue, imagePath));
+            }
+        }
+        return deck;
     }
 }
