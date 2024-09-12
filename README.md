@@ -24,10 +24,18 @@ This is my go at attempting to create Blackjack using JavaScript.
 
 
 ## Known Issues
-- No issues so far
+- No issues known so far
 
 
 ## Changelogs
+### 0.5.0 - 12-13/09/2024
+- Refractored code to utilize classes and objects
+- Functions split into different classes
+- Added a JS file for each class
+- More modular, getting closer to being ready for multiplayer
+- Sustained all previous functionality
+- Some of the code got improved
+
 ### 0.4.0 - 11/09/2024
 - Using row/colums for buttons
 - Added win/lose toast messages
@@ -77,8 +85,8 @@ This is my go at attempting to create Blackjack using JavaScript.
 
 
 ## Bug Reporting
-Not Currently supported
-
+DM me on discord
+Mastervoliumpl
 
 ## License
 MIT License
