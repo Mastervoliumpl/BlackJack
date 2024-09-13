@@ -35,7 +35,6 @@ class Deck {
     }
 
     drawCard() {
-        console.log('drawing card> ', this.cards[this.cards.length - 1]);
         return this.cards.pop();
     }
 }
