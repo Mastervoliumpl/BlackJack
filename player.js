@@ -12,7 +12,6 @@ class Player {
 
     calculateScore() {
         let aces = 0;
-        console.log('calculating score');
         this.score = this.hand.reduce((acc, card) => { // reduce method to sum the numeric value of each card in the hand, acc is the accumulator (Keeps accumulating the sum of the cards), card is the current card being iterated
             if (card.value === 'Ace') aces++;
             return acc + card.numericValue; // returns the sum of the accumulator and the numeric value of the current card

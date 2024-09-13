@@ -20,10 +20,8 @@ class Deck {
     }
 
     getNumericValue(value) {
-        console.log('Getting Numeric Value');
         if (value === 'Ace') return 11;
         if (value === 'Jack' || value === 'Queen' || value === 'King') return 10;
-        console.log('Numeric Value:', parseInt(value));
         return parseInt(value);
     }
 
@@ -37,6 +35,7 @@ class Deck {
     }
 
     drawCard() {
+        console.log('drawing card> ', this.cards[this.cards.length - 1]);
         return this.cards.pop();
     }
 }

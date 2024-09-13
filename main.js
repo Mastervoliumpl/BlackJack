@@ -33,7 +33,6 @@ function playerStand() {
 function chooseCardStyle() {
     cardStylePath = document.getElementById('card-style').value; // Update cardStylePath
     game = new Game(cardStylePath);  // Update the deck with the new style
-    updateUI();
 }
 
 function createCardElement(card) {
