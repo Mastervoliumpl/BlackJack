@@ -1,4 +1,7 @@
-class Game {
+import { Deck } from './deck.js';
+import { Player } from './player.js';
+
+export class Game {
     constructor() {
         this.deck = new Deck(`CircuitWhiteCards/`); // creates a new deck with default card style
         this.player = new Player();

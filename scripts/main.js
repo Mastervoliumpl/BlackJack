@@ -1,3 +1,5 @@
+import { Game } from './game.js';
+
 let game;
 let cardStylePath = 'CircuitWhiteCards/'; // Default card style
 

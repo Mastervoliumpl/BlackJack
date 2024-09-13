@@ -1,4 +1,6 @@
-class Deck {
+import { Card } from './card.js';
+
+export class Deck {
     constructor(cardStylePath) {
         this.cardStylePath = cardStylePath;
         this.cards = this.createDeck();
